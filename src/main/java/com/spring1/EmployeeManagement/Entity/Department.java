@@ -2,6 +2,9 @@ package com.spring1.EmployeeManagement.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="department")
 public class Department {
@@ -12,6 +15,7 @@ public class Department {
 
     @Column(name = "title")
     private String title;
+
 
     public Department(){
 

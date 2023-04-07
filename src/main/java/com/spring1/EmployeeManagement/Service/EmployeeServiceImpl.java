@@ -1,13 +1,17 @@
 package com.spring1.EmployeeManagement.Service;
 
+import com.spring1.EmployeeManagement.DTO.EmployeeDTO;
 import com.spring1.EmployeeManagement.Entity.Employee;
+import com.spring1.EmployeeManagement.Repository.DepartmentRepository;
 import com.spring1.EmployeeManagement.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import org.modelmapper.ModelMapper;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -61,5 +65,31 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findAllSorted(String sortField, Sort.Direction sortDirection) {
         Sort sort = Sort.by(sortDirection, sortField);
         return employeeRepository.findAll(sort);
+    }
+
+    @Override
+    public List<EmployeeDTO> findAllDTO() {
+        List<Employee> employees = employeeRepository.findAll();
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+        for(Employee employee: employees ){
+            employeeDTOS.add(EmployeeDTO.fromEmployee(employee));
+        }
+        return employeeDTOS;
+    }
+
+    @Override
+    public List<Employee> findByDepartmentId(int departmentId) {
+        return employeeRepository.findByDepartmentId(departmentId);
+    }
+
+    @Override
+    public List<EmployeeDTO> findAllSortedDTO(String sortField, Sort.Direction sortDirection) {
+        Sort sort = Sort.by(sortDirection, sortField);
+        List<Employee> employees = employeeRepository.findAll(sort);
+        List<EmployeeDTO> employeeDTOs = new ArrayList<>();
+        for (Employee employee : employees) {
+            employeeDTOs.add(EmployeeDTO.fromEmployee(employee));
+        }
+        return employeeDTOs;
     }
 }

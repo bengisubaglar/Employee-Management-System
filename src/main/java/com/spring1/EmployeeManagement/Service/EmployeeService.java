@@ -1,5 +1,6 @@
 package com.spring1.EmployeeManagement.Service;
 
+import com.spring1.EmployeeManagement.DTO.EmployeeDTO;
 import com.spring1.EmployeeManagement.Entity.Employee;
 import org.springframework.data.domain.Sort;
 
@@ -18,4 +19,11 @@ public interface EmployeeService {
     List<Employee> findByFirstNameContaining(String firstName);
 
     List<Employee> findAllSorted(String sortField, Sort.Direction sortDirection);
+
+    List<EmployeeDTO> findAllDTO();
+
+    List<EmployeeDTO> findAllSortedDTO(String sortField, Sort.Direction sortDirection);
+
+    List<Employee> findByDepartmentId(int departmentId);
+
 }

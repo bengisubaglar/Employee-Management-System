@@ -45,9 +45,11 @@
     <table class="table table-bordered table-striped">
       <thead class="table-dark">
       <tr>
-        <th><a href="#" th:href="@{/employees/list/sort(sortField='firstName', sortDirection=${sortDirection == 'ASC' ? 'DESC' : 'ASC'})}" title="Sort By First Name">First Name</a></th>
-        <th><a href="#" th:href="@{/employees/list/sort(sortField='lastName', sortDirection=${sortDirection == 'ASC' ? 'DESC' : 'ASC'})}" title="Sort By Last Name">Last Name</a></th>
-        <th><a href="#" th:href="@{/employees/list/sort(sortField='email', sortDirection=${sortDirection == 'ASC' ? 'DESC' : 'ASC'})}" title="Sort By Email">Email</a></th>
+
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+
         <th>Department</th>
         <th>Actions</th>
       </tr>
@@ -59,8 +61,8 @@
         <td th:text="${tempEmployee.firstName}" />
         <td th:text="${tempEmployee.lastName}" />
         <td th:text="${tempEmployee.email}" />
+        <td th:text="${tempEmployee.department.title}" />
 
-        <td th:text="${tempEmployee.departmentName}" />
         <td>
           <a th:href="@{/employees/showUpdateForm(employeeId=${tempEmployee.id})}"
              class="btn btn-info btn-sm ">

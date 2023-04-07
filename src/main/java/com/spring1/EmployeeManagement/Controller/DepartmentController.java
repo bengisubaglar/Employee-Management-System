@@ -1,7 +1,10 @@
 package com.spring1.EmployeeManagement.Controller;
 
+import com.spring1.EmployeeManagement.DTO.EmployeeDTO;
 import com.spring1.EmployeeManagement.Entity.Department;
+import com.spring1.EmployeeManagement.Entity.Employee;
 import com.spring1.EmployeeManagement.Service.DepartmentService;
+import com.spring1.EmployeeManagement.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -14,10 +17,13 @@ import java.util.List;
 @RequestMapping("/departments")
 public class DepartmentController {
     private DepartmentService departmentService;
+    private EmployeeService employeeService;
 
     @Autowired
-    public DepartmentController(DepartmentService departmentService){
+    public DepartmentController(DepartmentService departmentService,EmployeeService employeeService){
         this.departmentService = departmentService;
+        this.employeeService = employeeService;
+
     }
 
     // add mapping for "/list"
@@ -80,5 +86,17 @@ public class DepartmentController {
         List<Department> departmentList = departmentService.findAllSorted(sortField, Sort.Direction.fromString(sortDirection));
         model.addAttribute("departments",departmentList);
         return "employees/list-departments";
+    }
+
+    @GetMapping("/employees")
+    public String findEmployeesByDepartmentId(@RequestParam("departmentId") int departmentId, Model model){
+
+        List<Employee> employees = employeeService.findByDepartmentId(departmentId);
+
+        // logging the returned data to console
+        System.out.println("Employees in department " + departmentId + ": " + employees.toString());
+
+        model.addAttribute("employees",employees);
+        return "employees/list-employees-by-dep";
     }
 }

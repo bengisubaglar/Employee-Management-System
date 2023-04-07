@@ -1,11 +1,6 @@
 package com.spring1.EmployeeManagement.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 @Entity
@@ -34,26 +29,39 @@ public class Employee {
     @Column(name = "department_id")
     private int departmentId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", insertable=false, updatable=false)
+    private Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     // define constructors
 
     public Employee() {
 
     }
 
-    public Employee(int id, String firstName, String lastName, String email, int departmentId) {
+    public Employee(String firstName, String lastName, String email, int departmentId, Department department) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.departmentId = departmentId;
+        this.department = department;
+    }
+
+    public Employee(int id, String firstName, String lastName, String email, int departmentId, Department department) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.departmentId = departmentId;
-    }
-
-
-    public Employee(String firstName, String lastName, String email, int departmentId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.departmentId = departmentId;
+        this.department = department;
     }
 
     // define getter/setter

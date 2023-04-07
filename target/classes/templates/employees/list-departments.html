@@ -48,7 +48,8 @@
     <tr th:each="tempDepartment : ${departments}">
 
       <td th:text="${tempDepartment.id}" />
-      <td th:text="${tempDepartment.title}" />
+
+      <td><a th:href="@{/departments/employees(departmentId=${tempDepartment.id})}" th:text="${tempDepartment.title}" /></td>
       <td>
         <a th:href="@{/departments/showUpdateForm(departmentId=${tempDepartment.id})}"
            class="btn btn-info btn-sm ">

@@ -1,5 +1,6 @@
 package com.spring1.EmployeeManagement.Controller;
 
+import com.spring1.EmployeeManagement.DTO.EmployeeDTO;
 import com.spring1.EmployeeManagement.Entity.Employee;
 import com.spring1.EmployeeManagement.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,10 @@ public class EmployeeController {
     public String listEmployees(Model theModel) {
 
         // get the employees from the database
-        List<Employee> employeeList = employeeService.findAll();
+        List<EmployeeDTO> employeeDTOList = employeeService.findAllDTO();
 
         // add to the spring model
-        theModel.addAttribute("employees",employeeList );
+        theModel.addAttribute("employees",employeeDTOList );
 
         return "employees/list-employees";
     }
@@ -90,7 +91,7 @@ public class EmployeeController {
     @GetMapping("/list/sort")
     public String sortEmployees(@RequestParam String sortField, @RequestParam String sortDirection, Model model){
 
-        List<Employee> employeeList = employeeService.findAllSorted(sortField, Sort.Direction.fromString(sortDirection));
+        List<EmployeeDTO> employeeList = employeeService.findAllSortedDTO(sortField, Sort.Direction.fromString(sortDirection));
         model.addAttribute("employees",employeeList);
         return "employees/list-employees";
 
